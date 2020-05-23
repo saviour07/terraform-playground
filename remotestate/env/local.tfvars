@@ -1,0 +1,2 @@
+location = "ukwest"
+prefix = "my"
