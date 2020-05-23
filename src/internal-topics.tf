@@ -8,26 +8,47 @@ locals {
         domain   = "Internal"
         name     = "Else"
     }
-    internal_topics = {
-        "Internal" = {
-            topic_name = "OneService"
-            messages   = [
-                {
-                    name = "OneMsg",
-                    versions = [ "1.0" ]
-                }
-            ]
+    internal_topics = [
+        {
+          topic_name = "OneService"
+          messages   = [
+            {
+                name = "OneMsg",
+                versions = [ "1.0" ]
+            },
+            {
+                name = "TwoMsg",
+                versions = [ "1.0", "2.0" ]
+            }
+          ]
+        },
+        {
+          topic_name = "TwoService"
+          messages = [
+            {
+              name = "OneMsg",
+              versions = [ "1.0" ]
+            },
+            {
+              name = "TwoMsg",
+              versions = [ "1.0", "2.0" ]
+            },
+            {
+              name = "ThreeMsg",
+              versions = [ "1.0", "2.0", "3.0" ]
+            }
+          ]
         }
-    }
+    ]
     internal_subscriptions = flatten([
-        for domain, topic in local.internal_topics : [
+        for topic in local.internal_topics : [
             for message in topic.messages : [
                 for version in message.versions : {
-                    domain_name = domain
+                    domain_name = local.internal_msg_values["domain"]
                     topic_name = topic.topic_name
                     message_name = message.name
                     version = version
-                    subscription_name = "${domain}.${topic.topic_name}.${message.name}.${version}"
+                    subscription_name = "${local.internal_msg_values["domain"]}.${topic.topic_name}.${message.name}.${version}"
                 }
             ]
         ]
@@ -35,7 +56,9 @@ locals {
 }
 
 resource "azurerm_servicebus_topic" "internal_topic" {
-  for_each = local.internal_topics
+    for_each = {
+    for topic in local.internal_topics : topic.topic_name => topic
+  }
 
   name                         = each.value.topic_name
   resource_group_name          = azurerm_resource_group.rg.name
