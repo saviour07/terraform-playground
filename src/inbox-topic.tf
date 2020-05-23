@@ -1,11 +1,13 @@
 locals {
-    msg_props = {
+    inbox_msg_props = {
         domain  = "X-MsgDomain"
         name    = "X-MsgName"
+        version = "X-MsgVersion"
     }
-    msg_values = {
+    inbox_msg_values = {
         domain   = "Test"
         name     = "Something"
+        version  = "1.0"
     }
 }
 
@@ -33,7 +35,8 @@ resource "azurerm_servicebus_subscription_rule" "inboxsub_rule" {
   subscription_name   = azurerm_servicebus_subscription.inbox_sub.name
   filter_type         = "SqlFilter"
   sql_filter          = join(" AND ", [
-    "${local.msg_props["domain"]}='${local.msg_values["domain"]}'",
-    "${local.msg_props["name"]}='${local.msg_values["name"]}'"
+    "${local.inbox_msg_props["domain"]}='${local.inbox_msg_values["domain"]}'",
+    "${local.inbox_msg_props["name"]}='${local.inbox_msg_values["name"]}'",
+    "${local.inbox_msg_props["version"]}='${local.inbox_msg_values["version"]}'"
   ])
 }
