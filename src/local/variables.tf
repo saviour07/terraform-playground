@@ -29,3 +29,15 @@ variable "sb_name" {
 variable "sb_sku" {
     type = string
 }
+
+variable "inbox_topic_name" {
+    type = string
+}
+
+variable "inbox_topic_enable_partitioning" {
+    type = bool
+}
+
+variable "inbox_topic_requires_duplicate_detection" {
+    type = bool
+}

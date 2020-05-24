@@ -1,8 +1,4 @@
 /*
-output "sb_inbox_topic_id" {
-    value = azurerm_servicebus_topic.inbox_topic.id
-}
-
 output "sb_inbox_topic_sub_id" {
     value = azurerm_servicebus_subscription.inbox_sub.id
 }
