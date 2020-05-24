@@ -21,7 +21,23 @@ topics = {
         messages = [
             {
                 name = "TopicOneMsgOne",
-                versions = [ "1.0" ]
+                versions = {
+                    1 = [ "1.0" ]
+                }
+            }
+        ],
+        enable_partitioning = true,
+        requires_duplicate_detection = true,
+        max_delivery_count = 1
+    },
+    "TopicTwo" = {
+        messages = [
+            {
+                name = "TopicTwoMsgOne",
+                versions = {
+                    1 = [ "1.0", "1.1" ]
+                    2 = [ "2.0" ]
+                }
             }
         ],
         enable_partitioning = true,

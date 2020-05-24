@@ -9,3 +9,7 @@ variable "rg_name" {
 variable "sb_name" {
     type = string
 }
+
+variable "domain" {
+    type = string
+}

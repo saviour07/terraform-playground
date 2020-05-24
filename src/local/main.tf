@@ -66,4 +66,5 @@ module "internal_topic_subscriptions" {
     rg_name     = module.resource_group.rg_name
     sb_name     = module.service_bus.sb_name
     topics = var.topics
+    domain = "internal"
 }
