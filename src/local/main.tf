@@ -3,8 +3,11 @@ provider "azurerm" {
     features {}
 }
 
-resource "azurerm_resource_group" "rg" {
-    name = "${var.prefix}tfplayground"
-    location = var.location
-    tags = var.tags
+module "resource_group" {
+    source = "../modules/resource-groups"
+
+    rg_location = var.rg_location
+    rg_prefix = var.rg_prefix
+    rg_name = var.rg_name
+    rg_tags = var.rg_tags
 }

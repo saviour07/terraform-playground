@@ -1,7 +1,3 @@
-output "resource_group_id" {
-    value = azurerm_resource_group.rg.id
-}
-
 /*
 output "sb_namespace_id" {
     value = azurerm_servicebus_namespace.sb.id
