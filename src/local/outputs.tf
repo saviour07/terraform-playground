@@ -2,6 +2,7 @@ output "resource_group_id" {
     value = azurerm_resource_group.rg.id
 }
 
+/*
 output "sb_namespace_id" {
     value = azurerm_servicebus_namespace.sb.id
 }
@@ -21,3 +22,4 @@ output "sb_inbox_topic_sub_id" {
 output "sb_inbox_topic_sub_rule_id" {
     value = azurerm_servicebus_subscription_rule.inboxsub_rule.id
 }
+*/

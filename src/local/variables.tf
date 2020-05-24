@@ -1,16 +1,17 @@
 variable "location" {
     type = string
+    default = "ukwest"
 }
 
 variable "prefix" {
     type = string
-    default = "prod"
+    default = "my"
 }
 
 variable "tags" {
     type = map
     default = {
         Environment = "Terraform Playground"
-        Team = "TeamName"
+        Team = "Local"
     }
 }
