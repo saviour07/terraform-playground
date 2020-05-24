@@ -5,3 +5,7 @@ rg_tags = {
     Environment = "Terraform Playground"
     Team = "Local"
 }
+sb_location = "ukwest"
+sb_prefix = "my"
+sb_name = "servicebus"
+sb_sku = "standard"

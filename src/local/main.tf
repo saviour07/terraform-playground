@@ -11,3 +11,13 @@ module "resource_group" {
     rg_name = var.rg_name
     rg_tags = var.rg_tags
 }
+
+module "service_bus" {
+    source = "../modules/service-bus"
+
+    sb_location = var.sb_location
+    sb_prefix = var.sb_prefix
+    sb_name = var.sb_name
+    sb_sku = var.sb_sku
+    rg_name = module.resource_group.rg_name
+}
