@@ -40,3 +40,14 @@ module "inbox_topic_subscription" {
     topic_name                            = module.inbox_topic.sb_topic_name
     topic_subscription_max_delivery_count = var.inbox_topic_subscription_max_delivery_count
 }
+
+module "inbox_topic_subscription_rule" {
+    source = "../modules/internal-service-bus-topic-subscription-rules"
+
+    rg_name     = module.resource_group.rg_name
+    sb_name     = module.service_bus.sb_name
+    topic_name  = module.inbox_topic.sb_topic_name
+    sub_name    = module.inbox_topic_subscription.sb_topic_subscription_name
+    msg_name    = "mymsgname"
+    msg_version = "1.0"
+}
