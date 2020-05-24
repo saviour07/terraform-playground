@@ -31,3 +31,12 @@ module "inbox_topic" {
     sb_name                            = module.service_bus.sb_name
     rg_name                            = module.resource_group.rg_name
 }
+
+module "inbox_topic_subscription" {
+    source = "../modules/service-bus-topic-subscriptions"
+
+    rg_name                               = module.resource_group.rg_name
+    sb_name                               = module.service_bus.sb_name
+    topic_name                            = module.inbox_topic.sb_topic_name
+    topic_subscription_max_delivery_count = var.inbox_topic_subscription_max_delivery_count
+}

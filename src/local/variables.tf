@@ -41,3 +41,7 @@ variable "inbox_topic_enable_partitioning" {
 variable "inbox_topic_requires_duplicate_detection" {
     type = bool
 }
+
+variable "inbox_topic_subscription_max_delivery_count" {
+    type = number
+}
