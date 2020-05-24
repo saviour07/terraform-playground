@@ -15,3 +15,17 @@ inbox_topic_name = "inbox"
 inbox_topic_enable_partitioning = true
 inbox_topic_requires_duplicate_detection = true
 inbox_topic_subscription_max_delivery_count = 1
+
+topics = {
+    "TopicOne" = {
+        messages = [
+            {
+                name = "TopicOneMsgOne",
+                versions = [ "1.0" ]
+            }
+        ],
+        enable_partitioning = true,
+        requires_duplicate_detection = true,
+        max_delivery_count = 1
+    }
+}

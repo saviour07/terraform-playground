@@ -51,3 +51,19 @@ module "inbox_topic_subscription_rule" {
     msg_name    = "mymsgname"
     msg_version = "1.0"
 }
+
+module "internal_topics" {
+    source = "../modules/experimental/service-bus-topics"
+
+    rg_name     = module.resource_group.rg_name
+    sb_name     = module.service_bus.sb_name
+    topics = var.topics
+}
+
+module "internal_topic_subscriptions" {
+    source = "../modules/experimental/service-bus-topic-subscriptions"
+
+    rg_name     = module.resource_group.rg_name
+    sb_name     = module.service_bus.sb_name
+    topics = var.topics
+}

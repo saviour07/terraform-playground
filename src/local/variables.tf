@@ -45,3 +45,7 @@ variable "inbox_topic_requires_duplicate_detection" {
 variable "inbox_topic_subscription_max_delivery_count" {
     type = number
 }
+
+variable "topics" {
+    type = map
+}
