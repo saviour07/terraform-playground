@@ -27,49 +27,44 @@ locals {
         }
     ]
 
-// TODO:
-// Iterate over all topics to generate the subscriptions
-    subscriptions = [
-        {
-            sub_name = "${local.domain}.${local.topics[0].name}.${local.topics[0].messages[0].name}.v${local.topics[0].messages[0].versions[0].major}"
-            topic_name = local.topics[0].name
-            message_name = local.topics[0].messages[0].name
-            max_delivery_count = local.topics[0].max_delivery_count
-        }
-    ]
-
-// TODO:
-// Iterate over all the subscriptions to generate the rules
-    rules = [
-        {
-            sub_name = local.subscriptions[0].sub_name
-            topic_name = local.subscriptions[0].topic_name
-            sql_filter = join(" AND ", [
-                "${local.msg_props["domain"]}='${local.domain}'",
-                "${local.msg_props["name"]}='${local.topics[0].name}'",
-                join(" OR ", [
-                    for v in local.topics[0].messages[0].versions[0].minors : 
-                        "${local.msg_props["version"]}='${v}'"
-                ])
-            ])
-        }
-    ]
-
-    /*
-    // Below generates a tuple of objects
+    // The following will produce a list of subscription objects,
+    // see `modules/service-bus-topic-subscriptions` for an example.
+    // To debug the following, run `terraform console` with the input:
+    // flatten([for t in local.topics : [for m in t.messages : [ for v in m.versions : { tname = t.name, mname = m.name, ver = v.major }]]])
     subscriptions = flatten([
-        for topic_name, topic in var.topics : [
+        for topic in local.topics : [
             for message in topic.messages : [
-                for major_version, version in message.versions : {
-                    topic_name = topic_name
+                for version in message.versions : {
+                    sub_name = "${local.domain}.${topic.name}.${message.name}.v${version.major}"
+                    topic_name = topic.name
                     message_name = message.name
-                    sub_name = "${var.domain}.${topic_name}.${message.name}.v${major_version}"
                     max_delivery_count = topic.max_delivery_count
+                    
+                    // This isn't part of the subscription object but it will just be
+                    // discarded when passed to a module which expects a subscription
+                    // object and it doesn't recognise this property.
+                    // It's more useful to generate the filter here rather than
+                    // iterating all these topics again just for the rules.
+                    sql_filter = join(" AND ", [
+                        "${local.msg_props["domain"]}='${local.domain}'",
+                        "${local.msg_props["name"]}='${topic.name}'",
+                        join(" OR ", [for v in version.minors : "${local.msg_props["version"]}='${v}'" ])
+                    ])
                 }
             ]
         ]
     ])
-    */
+
+    // The following will produce a list of rule objects,
+    // see `modules/service-bus-topic-subscription-rules` for an example.
+    // To debug the following, run `terraform console` with the input:
+    // flatten([for s in local.subscriptions : { sname = s.sub_name, tname = s.topic_name, filter = s.sql_filter }])
+    rules = flatten([
+        for subscription in local.subscriptions : {
+            sub_name = subscription.sub_name
+            topic_name = subscription.topic_name
+            sql_filter = subscription.sql_filter
+        }])
 }
 
 module "topics_test" {
