@@ -1,5 +1,5 @@
 variable "topics" {
-    type = map
+    type = list
 }
 
 variable "rg_name" {

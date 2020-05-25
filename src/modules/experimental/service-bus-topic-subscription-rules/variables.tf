@@ -1,4 +1,4 @@
-variable "subscriptions" {
+variable "rules" {
     type = list
 }
 

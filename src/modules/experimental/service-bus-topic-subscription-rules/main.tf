@@ -1,21 +1,20 @@
 /*
- * A Subscription has the following schema.
+ * A Rule has the following schema.
  * This Module expects a list of these objects to be
- * provided, even for a single Subscription.
+ * provided, even for a single Rule.
  * 
  * This is to workaround Terraform Modules not supporting
  * the 'for_each' keyword *yet*.
  * 
-subscription = 
+rule = 
 {
   sub_name = string
   topic_name = string
-  message_name = string
-  max_delivery_count = number
+  sql_filter = string
 }
 */
 
-resource "azurerm_servicebus_subscription" "service_bus_topic_subscriptions" {
+resource "azurerm_servicebus_subscription_rule" "service_bus_topic_subscription_sql_rules" {
 
   // The following line is two operations:
   // 1. for_each = /* map */
@@ -27,11 +26,13 @@ resource "azurerm_servicebus_subscription" "service_bus_topic_subscriptions" {
   // where each iteration projects the current object, and a key/value
   // pair can be created.
   // Where "obj.property => obj" is "key = obj.property, val = obj".
-  for_each = { for sub in var.subscriptions : sub.sub_name => sub }
+  for_each = { for rule in var.rules : rule.sub_name => rule }
 
-  name                = each.key
+  name                = each.value.sub_name
   resource_group_name = var.rg_name
   namespace_name      = var.sb_name
   topic_name          = each.value.topic_name
-  max_delivery_count  = each.value.max_delivery_count
+  subscription_name   = each.value.sub_name
+  filter_type         = "SqlFilter"
+  sql_filter          = each.value.sql_filter
 }

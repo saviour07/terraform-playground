@@ -1,7 +1,3 @@
-variable "subscriptions" {
-    type = list
-}
-
 variable "rg_name" {
     type = string
 }

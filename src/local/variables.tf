@@ -29,23 +29,3 @@ variable "sb_name" {
 variable "sb_sku" {
     type = string
 }
-
-variable "inbox_topic_name" {
-    type = string
-}
-
-variable "inbox_topic_enable_partitioning" {
-    type = bool
-}
-
-variable "inbox_topic_requires_duplicate_detection" {
-    type = bool
-}
-
-variable "inbox_topic_subscription_max_delivery_count" {
-    type = number
-}
-
-variable "topics" {
-    type = map
-}
