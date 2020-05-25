@@ -23,7 +23,7 @@ module "service_bus" {
 }
 
 module "internal_domain_topics" {
-    source = "../modules/experimental/internal-domain-service-bus-topics-with-sub-rules"
+    source = "../modules/internal-domain-service-bus-topics-with-sub-rules"
 
     rg_name = module.resource_group.rg_name
     sb_name = module.service_bus.sb_name

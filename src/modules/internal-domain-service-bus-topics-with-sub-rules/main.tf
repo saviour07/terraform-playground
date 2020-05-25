@@ -68,7 +68,7 @@ locals {
 }
 
 module "topics_test" {
-    source = "../../service-bus-topics"
+    source = "../service-bus-topics"
 
     rg_name = var.rg_name
     sb_name = var.sb_name
@@ -76,7 +76,7 @@ module "topics_test" {
 }
 
 module "subs_test" {
-    source = "../../service-bus-topic-subscriptions"
+    source = "../service-bus-topic-subscriptions"
 
     rg_name = var.rg_name
     sb_name = var.sb_name
@@ -84,7 +84,7 @@ module "subs_test" {
 }
 
 module "rules_test" {
-    source = "../../service-bus-topic-subscription-rules"
+    source = "../service-bus-topic-subscription-rules"
 
     rg_name = var.rg_name
     sb_name = var.sb_name
