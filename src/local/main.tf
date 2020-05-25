@@ -1,3 +1,15 @@
+terraform {
+    backend "azurerm" {
+        // resource_group_name = rg name
+        // storage_account_name = tfstate sa name
+        // container_name = tfstate sa container name
+        // key = tfstate sa account key
+    }
+    required_providers {
+        azurerm = "~> 2.1.0"
+    }
+}
+
 provider "azurerm" {
     version = "~> 2.1.0"
     features {}
