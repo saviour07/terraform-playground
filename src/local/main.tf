@@ -1,9 +1,12 @@
 terraform {
     backend "azurerm" {
-        // resource_group_name = rg name
-        // storage_account_name = tfstate sa name
-        // container_name = tfstate sa container name
-        // key = tfstate sa account key
+    // These values need to be set by the terraform init
+    // command using the -backend-config options.
+    // resource_group_name = env:TF_VARS_backend_rg_name
+    // storage_account_name = env:TF_VARS_backend_sa_name
+    // container_name = env:TF_VARS_backend_container_name
+    // access_key = env:TF_VARS_backend_sa_key
+    // key = terraform.tfstate
     }
     required_providers {
         azurerm = "~> 2.1.0"
@@ -29,7 +32,7 @@ module "service_bus" {
 
     sb_location = var.sb_location
     sb_prefix   = var.sb_prefix
-    sb_name     = var.sb_name
+    sb_name     = "${var.sb_name}${var.unique_id}"
     sb_sku      = var.sb_sku
     rg_name     = module.resource_group.rg_name
 }

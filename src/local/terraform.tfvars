@@ -1,3 +1,5 @@
+unique_id = "a780960b"
+
 rg_location = "ukwest"
 rg_prefix = "my"
 rg_name = "tfplayground"
@@ -8,5 +10,5 @@ rg_tags = {
 
 sb_location = "ukwest"
 sb_prefix = "my"
-sb_name = "servicebus"
+sb_name = "sb"
 sb_sku = "standard"
