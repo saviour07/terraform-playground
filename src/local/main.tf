@@ -27,6 +27,17 @@ module "resource_group" {
     rg_tags     = var.rg_tags
 }
 
+module "storage_account" {
+  source = "../modules/storage-account"
+
+  sa_name             = "${var.sa_prefix}${var.sa_name}"
+  rg_name             = module.resource_group.rg_name
+  sa_location         = var.sa_location
+  sa_account_tier     = var.sa_account_tier
+  sa_account_kind     = var.sa_account_kind
+  sa_replication_type = var.sa_replication_type
+}
+
 module "service_bus" {
     source = "../modules/service-bus"
 

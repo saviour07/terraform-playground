@@ -11,4 +11,10 @@ terraform init -backend-config="key=$environment.terraform.tfstate" -backend-con
 terraform plan -out=tfplan
 terraform apply tfplan
 
+$sbConnectionString = terraform output "sb_connection_string"
+
+$context = "Machine"
+
+[System.Environment]::SetEnvironmentVariable("ServiceBusConnectionString", $sbConnectionString)
+
 cd $originalDir

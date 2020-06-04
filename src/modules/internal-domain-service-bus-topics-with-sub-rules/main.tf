@@ -1,8 +1,8 @@
 locals {
     msg_props = {
-        domain  = "X-MsgDomain"
-        name    = "X-MsgName"
-        version = "X-MsgVersion"
+        domain  = "MsgDomain"
+        name    = "MsgName"
+        version = "MsgVersion"
     }
 
     domain = "internal"
