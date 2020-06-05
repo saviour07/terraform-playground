@@ -78,12 +78,6 @@ locals {
                     topic_name = topic.name
                     message_name = message.name
                     max_delivery_count = topic.max_delivery_count
-                    
-                    // This isn't part of the subscription object but it will just be
-                    // discarded when passed to a module which expects a subscription
-                    // object and it doesn't recognise this property.
-                    // It's more useful to generate the filter here rather than
-                    // iterating all these topics again just for the rules.
                     sql_filter = join(" AND ", [
                         "${local.msg_props["domain"]}='${local.domain}'",
                         "${local.msg_props["name"]}='${topic.name}'",
@@ -94,41 +88,13 @@ locals {
             ]
         ]
     ])
-
-
-
-    // The following will produce a list of rule objects,
-    // see `modules/service-bus-topic-subscription-rules` for an example.
-    // To debug the following, run `terraform console` with the input:
-    // flatten([for s in local.subscriptions : { sname = s.sub_name, tname = s.topic_name, filter = s.sql_filter }])
-    rules = flatten([
-        for subscription in local.subscriptions : {
-            sub_name = subscription.sub_name
-            topic_name = subscription.topic_name
-            sql_filter = subscription.sql_filter
-        }])
 }
 
-module "topics_test" {
-    source = "../service-bus-topics"
-
-    rg_name = var.rg_name
-    sb_name = var.sb_name
-    topics = local.topics
-}
-
-module "subs_test" {
+module "test_domain_topic_subscriptions_with_sql_rules" {
     source = "../service-bus-topic-subscriptions"
 
     rg_name = var.rg_name
     sb_name = var.sb_name
+    topics = local.topics
     subscriptions = local.subscriptions
-}
-
-module "rules_test" {
-    source = "../service-bus-topic-subscription-rules"
-
-    rg_name = var.rg_name
-    sb_name = var.sb_name
-    rules = local.rules
 }

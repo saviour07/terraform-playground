@@ -1,3 +1,7 @@
+variable "topics" {
+    type = list
+}
+
 variable "subscriptions" {
     type = list
 }
