@@ -1,5 +1,3 @@
-unique_id = "a780960b"
-
 rg_location = "ukwest"
 rg_prefix = "my"
 rg_name = "tfplayground"

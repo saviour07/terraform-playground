@@ -38,12 +38,20 @@ module "storage_account" {
   sa_replication_type = var.sa_replication_type
 }
 
+resource "random_string" "uid" {
+  length = 8
+  lower = true
+  upper = false
+  number = true
+  special = false
+}
+
 module "service_bus" {
     source = "../modules/service-bus"
 
     sb_location = var.sb_location
     sb_prefix   = var.sb_prefix
-    sb_name     = "${var.sb_name}${var.unique_id}"
+    sb_name     = "${var.sb_name}${random_string.uid.result}"
     sb_sku      = var.sb_sku
     rg_name     = module.resource_group.rg_name
 }
