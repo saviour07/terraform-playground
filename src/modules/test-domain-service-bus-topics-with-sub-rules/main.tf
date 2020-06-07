@@ -82,7 +82,7 @@ locals {
                         "${local.msg_props["domain"]}='${local.domain}'",
                         "${local.msg_props["name"]}='${topic.name}'",
                         "${local.msg_props["sender"]}='${local.domain}.${topic.name}'",
-                        join(" OR ", [for v in version.minors : "${local.msg_props["version"]}='${v}'" ])
+                        "(${join(" OR ", [for v in version.minors : "${local.msg_props["version"]}='${v}'" ])})"
                     ])
                 }
             ]

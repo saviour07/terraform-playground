@@ -42,7 +42,7 @@ locals {
                     sql_filter = join(" AND ", [
                         "${local.msg_props["domain"]}='${local.domain}'",
                         "${local.msg_props["name"]}='${topic.name}'",
-                        join(" OR ", [for v in version.minors : "${local.msg_props["version"]}='${v}'" ])
+                        "(${join(" OR ", [for v in version.minors : "${local.msg_props["version"]}='${v}'" ])})"
                     ])
                 }
             ]
