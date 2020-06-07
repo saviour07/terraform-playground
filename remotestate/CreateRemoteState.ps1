@@ -6,7 +6,7 @@ param(
 $originalDir = $PWD
 cd $PSScriptRoot\$environment
 
-terraform init
+terraform init -force-copy
 terraform plan -out=tfplan
 terraform apply tfplan
 

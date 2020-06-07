@@ -9,20 +9,8 @@
 topic =
 {
     name = string
-    messages = list(message)
     enable_partitioning = bool
     requires_duplicate_detection = bool
-    max_delivery_count = number
-}
-message =
-{
-    name = string
-    versions = list(version)
-}
-version =
-{
-    major = number
-    minors = list(string)
 }
 */
 

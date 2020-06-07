@@ -10,7 +10,6 @@ subscription =
 {
   sub_name = string
   topic_name = string
-  message_name = string
   max_delivery_count = number
   sql_filter = string
 }
@@ -23,14 +22,6 @@ locals {
   subs = { for sub in var.subscriptions : sub.sub_name => sub }
 }
 
-module "topics" {
-    source = "../service-bus-topics"
-
-    rg_name = var.rg_name
-    sb_name = var.sb_name
-    topics = var.topics
-}
-
 resource "azurerm_servicebus_subscription" "service_bus_topic_subscriptions" {
 
   for_each = local.subs
@@ -40,8 +31,6 @@ resource "azurerm_servicebus_subscription" "service_bus_topic_subscriptions" {
   namespace_name      = var.sb_name
   topic_name          = each.value.topic_name
   max_delivery_count  = each.value.max_delivery_count
-
-  depends_on = [module.topics]
 }
 
 resource "azurerm_servicebus_subscription_rule" "service_bus_topic_subscription_sql_rules" {
