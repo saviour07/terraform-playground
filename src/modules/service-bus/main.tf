@@ -5,7 +5,7 @@ resource "azurerm_servicebus_namespace" "sb" {
   sku                 = var.sb_sku
 }
 
-resource "azurerm_servicebus_namespace_authorization_rule" "sbAuthRule" {
+resource "azurerm_servicebus_namespace_authorization_rule" "auth_rule" {
   name                = "sbAuth"
   namespace_name      = azurerm_servicebus_namespace.sb.name
   resource_group_name = var.rg_name

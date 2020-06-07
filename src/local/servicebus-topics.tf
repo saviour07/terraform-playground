@@ -3,12 +3,22 @@ locals {
         {
             name = "Inbox",
             enable_partitioning = true,
-            requires_duplicate_detection = true
+            requires_duplicate_detection = true,
+            permissions = {
+                listen = true,
+                send = false,
+                manage = false
+            }
         },
         {
             name = "Outbox",
             enable_partitioning = true,
-            requires_duplicate_detection = true
+            requires_duplicate_detection = true,
+            permissions = {
+                listen = false,
+                send = true,
+                manage = false
+            }
         }
     ]
 }

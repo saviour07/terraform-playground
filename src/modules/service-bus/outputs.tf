@@ -7,6 +7,6 @@ output "sb_name" {
 }
 
 output "sb_connection_string" {
-    value     = azurerm_servicebus_namespace_authorization_rule.sbAuthRule.primary_connection_string
+    value     = azurerm_servicebus_namespace_authorization_rule.auth_rule.primary_connection_string
     sensitive = true
 }
