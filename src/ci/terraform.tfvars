@@ -1,2 +1,0 @@
-location = "ukwest"
-prefix = "ci"
